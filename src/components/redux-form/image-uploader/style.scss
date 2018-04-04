@@ -1,0 +1,52 @@
+.image-uploader {
+  .area {
+    border-style: dashed;
+    border-width: 1px;
+
+    &.rejected {
+      display: none;
+    }
+
+  }
+
+  .card {
+    .content {
+
+      border-top: none !important;
+
+      .description-container {
+        position: absolute;
+        bottom: 10px;
+        width: 90%;
+      }
+
+      .description {
+        display: inline-block;
+        width: 60%;
+      }
+
+      .size {
+        display: inline-block;
+        float: right;
+      }
+    }
+
+    .component-thumbnail-toolbar {
+      display: none;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+
+    &:hover {
+      .component-thumbnail-toolbar {
+        display: block;
+      }
+    }
+
+    .component-thumbnail-image {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}

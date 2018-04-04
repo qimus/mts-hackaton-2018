@@ -8,19 +8,21 @@ import App from './app'
 import 'semantic-ui-css/semantic.min.css'
 import 'styles/main.scss'
 
-const container = document.getElementById('app-container');
+const render = (component) => {
+    ReactDOM.render(
+        component,
+        document.getElementById('app-container')
+    );
+};
 
-ReactDOM.render(
-    <App/>,
-    container
-);
+render(<App/>)
 
 // Are we in development mode?
 if (module.hot) {
     // Whenever a new version of App.js is available
     module.hot.accept('./app', function () {
-        console.log("asdf");
+        const App = require('app').default;
         // Require the new version and render it instead
-        ReactDOM.render(<div>asdf</div>, container)
+        render(<App/>);
     })
 }

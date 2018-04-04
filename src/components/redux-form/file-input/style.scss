@@ -1,0 +1,40 @@
+.ui.list.file-list {
+  .item {
+
+    position: relative;
+
+    .content {
+
+      &.inline {
+        display: inline-block;
+      }
+
+      .file-description {
+        margin-left: 5%;
+      }
+
+      .fields {
+        margin-top: 10px;
+      }
+    }
+
+    .icon-status {
+      display: inline-block;
+    }
+
+    .component-uploader-toolbar {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: none;
+    }
+
+    &:hover {
+      .component-uploader-toolbar {
+        display: block;
+      }
+    }
+
+  }
+}
+

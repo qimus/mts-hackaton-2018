@@ -1,10 +1,9 @@
-var path = require('path');
-var webpack = require('webpack');
-var express = require('express');
-var config = require('./webpack.config');
-
-var app = express();
-var compiler = webpack(config);
+let path = require('path'),
+    webpack = require('webpack'),
+    express = require('express'),
+    config = require('./webpack.config'),
+    app = express(),
+    compiler = webpack(config);
 
 app.use(require('webpack-dev-middleware')(compiler, {
     publicPath: config.output.publicPath
@@ -14,8 +13,9 @@ app.use(require('webpack-hot-middleware')(compiler, {
     log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
 }));
 
-app.use(express.static('public'));
-
+app.get("/", function(req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
 
 app.listen(3000, function(err) {
     if (err) {

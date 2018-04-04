@@ -26,21 +26,20 @@ module.exports = {
     devtool: "source-map",
     entry: {
         app: [
-            'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+            'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
             './src/index.js'
         ],
     },
     output: {
         path: path.resolve(__dirname, 'public'),
         filename: '[name].bundle.js',
-        publicPath: '/public'
+        publicPath: '/'
     },
     plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
-        //new webpack.HotModuleReplacementPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('development'),
             'API_BASE_URL': JSON.stringify(API_BASE_URL),
