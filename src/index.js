@@ -8,6 +8,10 @@ import App from './app'
 import 'semantic-ui-css/semantic.min.css'
 import 'styles/main.scss'
 
+import storeProvider from './store/provider'
+
+const store = storeProvider.getStore();
+
 const render = (component) => {
     ReactDOM.render(
         component,
@@ -15,7 +19,7 @@ const render = (component) => {
     );
 };
 
-render(<App/>)
+render(<App store={store}/>)
 
 // Are we in development mode?
 if (module.hot) {
@@ -23,6 +27,6 @@ if (module.hot) {
     module.hot.accept('./app', function () {
         const App = require('app').default;
         // Require the new version and render it instead
-        render(<App/>);
+        render(<App store={store}/>);
     })
 }
