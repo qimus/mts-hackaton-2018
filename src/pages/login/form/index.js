@@ -51,6 +51,6 @@ class LoginForm extends Component {
 
 LoginForm = reduxForm({
     form: FORM_ID
-})(LoginForm)
+})(LoginForm);
 
 export default connect()(LoginForm)

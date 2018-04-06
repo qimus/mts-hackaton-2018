@@ -5,10 +5,12 @@ import {
 
 export default class EmptyLayout extends Component {
     render() {
+        const { children } = this.props;
+
         return (
             <Grid textAlign={'center'} verticalAlign={'middle'}>
-                <Grid.Column>
-                    {this.props.children}
+                <Grid.Column textAlign={'center'} verticalAlign={'middle'}>
+                    {children}
                 </Grid.Column>
             </Grid>
         )

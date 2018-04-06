@@ -13,7 +13,7 @@ app.use(require('webpack-hot-middleware')(compiler, {
     log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
 }));
 
-app.get("/", function(req, res) {
+app.get("*", function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 

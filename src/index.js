@@ -19,7 +19,7 @@ const render = (component) => {
     );
 };
 
-render(<App store={store}/>)
+render(<App store={store}/>);
 
 // Are we in development mode?
 if (module.hot) {
