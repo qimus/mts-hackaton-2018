@@ -10,3 +10,11 @@ body > .grid {
 .column {
   max-width: 450px;
 }
+
+.form {
+  .error.field {
+    i {
+      color: #9f3a38;
+    }
+  }
+}

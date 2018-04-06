@@ -13,7 +13,7 @@ const TextInput = ({
 }) => {
 
     let extra = {};
-    const {touched = false, error = ''} = meta;
+    const { touched = false, error = '' } = meta;
 
     if (readonly) {
         extra['readOnly'] = true;
@@ -23,13 +23,9 @@ const TextInput = ({
         extra['disabled'] = true;
     }
 
-    if (touched && error) {
-        extra['error'] = true;
-    }
-
     if (icon) {
         return (
-            <Form.Field>
+            <Form.Field style={{position: 'relative'}} error={touched && error}>
                 <div className="ui left icon input">
                     <Icon name={icon}/>
                     <input
@@ -37,20 +33,20 @@ const TextInput = ({
                         {...extra}
                         type={type}
                         placeholder={placeholder} />
-                    {touched && error && <InfoIcon item={error}/>}
                 </div>
+                {touched && error && <InfoIcon item={error} style={{position: 'absolute', top: '25%'}}/>}
             </Form.Field>
         )
     } else {
         return (
-            <Form.Field>
+            <Form.Field style={{position: 'relative'}} error={touched && error}>
                 {label && <label>{label}</label>}
                 <input
                     {...input}
                     {...extra}
                     type={type}
                     placeholder={placeholder} />
-                {touched && error && <InfoIcon item={error}/>}
+                {touched && error && <InfoIcon item={error} style={{position: 'absolute', top: '25%'}}/>}
             </Form.Field>
         )
     }

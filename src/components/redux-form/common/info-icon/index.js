@@ -7,7 +7,7 @@ import {
     Grid
 } from 'semantic-ui-react'
 
-const InfoIcon = ({header, items = [], item = '', iconName = 'info circle'}) => {
+const InfoIcon = ({header, items = [], item = '', iconName = 'info circle', ...rest}) => {
     let content = item;
     if (items.length > 0) {
         content = (
@@ -26,7 +26,7 @@ const InfoIcon = ({header, items = [], item = '', iconName = 'info circle'}) => 
         )
     }
 
-    return <Popup trigger={<Icon name={iconName} />} content={content}/>
+    return <Popup trigger={<Icon {...rest} name={iconName} size={'large'}/>} content={content} />
 };
 
 InfoIcon.propTypes = {
