@@ -25,7 +25,7 @@ const TextInput = ({
 
     if (icon) {
         return (
-            <Form.Field style={{position: 'relative'}} error={touched && error}>
+            <Form.Field style={{position: 'relative', paddingRight: 10}} error={touched && error}>
                 <div className="ui left icon input">
                     <Icon name={icon}/>
                     <input
@@ -39,7 +39,7 @@ const TextInput = ({
         )
     } else {
         return (
-            <Form.Field style={{position: 'relative'}} error={touched && error}>
+            <Form.Field style={{position: 'relative', paddingRight: 10}} error={touched && error}>
                 {label && <label>{label}</label>}
                 <input
                     {...input}
@@ -57,7 +57,10 @@ TextInput.propTypes = {
     help: PropTypes.string,
     meta: PropTypes.shape({
         touched: PropTypes.bool,
-        error: PropTypes.string
+        error: PropTypes.oneOfType(
+            PropTypes.bool,
+            PropTypes.string
+        )
     }),
     readonly: PropTypes.bool,
     disabled: PropTypes.bool,

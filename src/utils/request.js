@@ -64,6 +64,7 @@ const request = {
     },
     post(url, params, options = {}) {
         options['data'] = params;
+        options['withCredentials'] = true;
 
         return applyFetch(url, options, 'POST');
     },

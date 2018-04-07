@@ -7,14 +7,14 @@ import {
 import request, { checkResponse } from 'utils/request'
 import authUtils from 'utils/auth'
 
-export function auth({login, password}) {
+export function auth({ login, password }) {
     return async (dispatch) => {
         dispatch({
             type: USER_LOGIN_REQUEST
         });
 
         try {
-            let response = request.post(api.auth, { login, password });
+            let response = await request.post(api.auth, { login, password });
             let result = checkResponse(response);
 
             dispatch({
@@ -25,9 +25,10 @@ export function auth({login, password}) {
             authUtils.setToken(result.token);
 
         } catch (e) {
+            console.log(e);
             dispatch({
                 type: USER_LOGIN_ERROR,
-                error: e.message
+                error: e.response.data.message
             });
 
             throw e;

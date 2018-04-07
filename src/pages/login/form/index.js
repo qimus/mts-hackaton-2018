@@ -13,6 +13,9 @@ import {
     Message
 } from 'semantic-ui-react'
 import { withRouter } from 'react-router'
+import { Link } from 'react-router-dom'
+
+import logo from 'resource/logo.png'
 
 //actions
 import { auth } from 'actions/user'
@@ -44,26 +47,33 @@ class LoginForm extends Component {
         }
     }
 
-    authenticate = () => {
+    authenticate = (values) => {
+        const { login, password } = values;
 
+        try {
+            this.props.auth({ login, password });
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     render() {
 
-        const { handleSubmit, valid = true } = this.props;
+        const { handleSubmit, valid = true, user } = this.props;
 
         return (
-            <div>
+            <div style={{marginTop: 50}}>
+                <img src={logo} width={128}/>
                 <Header as={'h2'} color={'teal'}>
                     <div className={'content'}>Авторизация</div>
                 </Header>
-                <Form size={'large'} onSubmit={handleSubmit(this.authenticate)} error={!valid}>
+                <Form size={'large'} onSubmit={handleSubmit(this.authenticate)} error={!valid || !!user.error}>
                     <Segment>
                         <Field
                             component={TextInput}
                             icon={'user'}
                             name={'login'}
-                            placeholder={'Логин или e-mail'}
+                            placeholder={'e-mail'}
                         />
                         <Field
                             component={TextInput}
@@ -72,11 +82,14 @@ class LoginForm extends Component {
                             type={'password'}
                             placeholder={'Пароль'}
                         />
+                        {user.error && (
+                            <Message error content={user.error}/>
+                        )}
                         <Button color={'teal'} size={'large'} fluid>Войти</Button>
                     </Segment>
                 </Form>
                 <Message>
-                    Впервые на сайте? <a href={'#'}>Присоединиться</a>
+                    Впервые на сайте? <Link to={'sign-up'}>Присоединиться</Link>
                 </Message>
             </div>
         )
@@ -89,7 +102,7 @@ LoginForm = reduxForm({
 })(LoginForm);
 
 const mapDispatchToProps = (dispatch) => ({
-    auth: bindActionCreators((auth, dispatch))
+    auth: bindActionCreators(auth, dispatch)
 });
 
 const mapStateToProps = (state) => ({

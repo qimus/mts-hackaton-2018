@@ -20,13 +20,14 @@ import LoginPage from 'pages/login'
 import ProfilePage from 'pages/profile'
 import MainPage from 'pages/main'
 import NotFound from 'pages/404'
+import SignUpPage from 'pages/sign-up'
 
-const RouteWithLayout = ({layout:Layout, page:component, secure = false, ...rest}) => {
+const RouteWithLayout = ({layout:Layout, page:component, privacy = false, ...rest}) => {
     return (
         <Route {...rest} render={(props) => {
-            if (secure && !auth.isLoggedIn()) {
+            if (privacy && !auth.isLoggedIn()) {
                 return <Redirect to={{
-                    pathname: '/login'
+                    pathname: '/sign-in'
                 }}/>
             }
 
@@ -49,8 +50,9 @@ export default class App extends Component {
                 <Router history={history}>
                     <Switch>
                         <RouteWithLayout exact layout={EmptyLayout} path={'/'} page={MainPage}/>
-                        <RouteWithLayout exact layout={EmptyLayout} path={'/login'} page={LoginPage}/>
-                        <RouteWithLayout exact secure layout={EmptyLayout} path={'/profile'} page={ProfilePage}/>
+                        <RouteWithLayout exact layout={EmptyLayout} path={'/sign-in'} page={LoginPage}/>
+                        <RouteWithLayout exact layout={EmptyLayout} path={'/sign-up'} page={SignUpPage}/>
+                        <RouteWithLayout exact privacy layout={EmptyLayout} path={'/profile'} page={ProfilePage}/>
                         <Route component={NotFound} path={'*'}/>
                     </Switch>
                 </Router>
