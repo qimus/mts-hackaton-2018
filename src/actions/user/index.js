@@ -1,12 +1,13 @@
 import api from 'constants/urls'
+import _ from 'lodash'
 import {
     USER_LOGIN_REQUEST,
     USER_LOGIN_ERROR,
-    USER_LOGIN_SUCCESS,
 
     USER_ERROR,
     USER_REQUEST,
-    USER_SUCCESS
+    USER_SUCCESS,
+    USER_LOGOUT
 } from 'constants/actions'
 import request, { checkResponse } from 'utils/request'
 import authUtils from 'utils/auth'
@@ -31,10 +32,10 @@ export function getUser(userId) {
             console.log(e);
             dispatch({
                 type: USER_ERROR,
-                error: e.response.data.message
+                error: _.get(e, 'response.data.message')
             });
 
-            throw e;
+            //throw e;
         }
     }
 }
@@ -49,12 +50,8 @@ export function auth({ login, password }) {
             let response = await request.post(api.auth, { login, password });
             let result = checkResponse(response);
 
-            dispatch({
-                type: USER_LOGIN_SUCCESS,
-                payload: result.result[0]
-            });
-
             authUtils.setToken(result.result[0].auth_key);
+            localStorage.setItem('USER_ID', result.result[0].user_id);
 
             dispatch(getUser(result.result[0].user_id));
 
@@ -62,7 +59,7 @@ export function auth({ login, password }) {
             console.log(e);
             dispatch({
                 type: USER_LOGIN_ERROR,
-                error: e.response.data.message
+                error: _.get(e, 'response.data.message')
             });
 
             throw e;
@@ -79,6 +76,10 @@ export function register(values) {
 
             authUtils.setToken(result.token);
 
+            authUtils.setToken(result.result[0].auth_key);
+            localStorage.setItem('USER_ID', result.result[0].user_id);
+
+            dispatch(getUser(result.result[0].user_id));
 
 
         } catch (e) {
@@ -86,5 +87,14 @@ export function register(values) {
 
             throw e;
         }
+    }
+}
+
+export function logout() {
+    return (dispatch) => {
+        authUtils.logout();
+        dispatch({
+            type: USER_LOGOUT,
+        })
     }
 }

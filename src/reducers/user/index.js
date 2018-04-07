@@ -3,9 +3,10 @@ import {
     USER_LOGIN_SUCCESS,
     USER_LOGIN_ERROR,
 
-    USER_SUCCESS
+    USER_SUCCESS,
+    USER_LOGOUT,
+    USER_ERROR
 } from 'constants/actions'
-import {USER_ERROR} from "../../constants/actions";
 
 const initState = {
     isFetching: false,
@@ -22,6 +23,8 @@ export default function user(state = initState, action) {
         case USER_LOGIN_ERROR:
         case USER_ERROR:
             return {...state, isFetching: false, error: action.error};
+        case USER_LOGOUT:
+            return initState;
         default:
             return state;
     }

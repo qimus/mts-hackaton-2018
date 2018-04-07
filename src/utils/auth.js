@@ -15,6 +15,10 @@ const auth = {
         localStorage.setItem(TOKEN_KEY, token);
     },
 
+    logout() {
+        localStorage.removeItem(TOKEN_KEY);
+    },
+
     isLoggedIn() {
         let token = this.getToken();
         return token != undefined;

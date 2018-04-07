@@ -14,6 +14,7 @@ import auth from 'utils/auth'
 
 //layouts
 import EmptyLayout from 'pages/layouts/empty'
+import MainLayout from 'pages/layouts/main'
 
 //pages
 import LoginPage from 'pages/login'
@@ -49,10 +50,10 @@ export default class App extends Component {
             <Provider store={this.props.store}>
                 <Router history={history}>
                     <Switch>
-                        <RouteWithLayout exact layout={EmptyLayout} path={'/'} page={MainPage}/>
+                        <RouteWithLayout exact layout={MainLayout} path={'/'} page={MainPage}/>
                         <RouteWithLayout exact layout={EmptyLayout} path={'/sign-in'} page={LoginPage}/>
                         <RouteWithLayout exact layout={EmptyLayout} path={'/sign-up'} page={SignUpPage}/>
-                        <RouteWithLayout exact privacy layout={EmptyLayout} path={'/profile'} page={ProfilePage}/>
+                        <RouteWithLayout exact privacy layout={MainLayout} path={'/profile'} page={ProfilePage}/>
                         <Route component={NotFound} path={'*'}/>
                     </Switch>
                 </Router>
