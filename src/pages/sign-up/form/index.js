@@ -7,7 +7,8 @@ import {
     Form,
     Message,
     Header,
-    Button
+    Button,
+    Grid
 } from 'semantic-ui-react'
 import TextInput from 'components/redux-form/text-input'
 import Dropdown from 'components/redux-form/suggest'
@@ -230,7 +231,12 @@ class SignUpForm extends Component {
                         />
                     )}
 
-                    <Button color={'teal'} size={'large'} fluid style={{marginTop: 10}}>Зарегистрироваться</Button>
+                    <Button
+                        color={'teal'}
+                        size={'large'}
+                        style={{marginTop: 10, width: 300}}>
+                        Зарегистрироваться
+                    </Button>
                 </Form>
             </div>
         )
