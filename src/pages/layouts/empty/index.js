@@ -9,9 +9,9 @@ export default class EmptyLayout extends Component {
 
         return (
             <Grid textAlign={'center'} verticalAlign={'middle'}>
-                <Grid.Column textAlign={'center'} verticalAlign={'middle'}>
+                <Grid.Row>
                     {children}
-                </Grid.Column>
+                </Grid.Row>
             </Grid>
         )
     }

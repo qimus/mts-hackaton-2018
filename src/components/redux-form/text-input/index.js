@@ -9,7 +9,7 @@ import InfoIcon from 'components/redux-form/common/info-icon'
 
 const TextInput = ({
        label,
-       placeholder, help, meta = {}, input, readonly, disabled, horizontal = false, valueExpr, schema, isEdited = false, type = 'text', icon
+       placeholder, help, meta = {}, input, inline = false, readonly, disabled, horizontal = false, valueExpr, schema, isEdited = false, type = 'text', icon
 }) => {
 
     let extra = {};
@@ -25,7 +25,8 @@ const TextInput = ({
 
     if (icon) {
         return (
-            <Form.Field style={{position: 'relative', paddingRight: 10}} error={touched && error}>
+            <Form.Field style={{position: 'relative', paddingRight: 10}} inline={inline} error={touched && error}>
+                {label && <label>{label}</label>}
                 <div className="ui left icon input">
                     <Icon name={icon}/>
                     <input
@@ -39,7 +40,7 @@ const TextInput = ({
         )
     } else {
         return (
-            <Form.Field style={{position: 'relative', paddingRight: 10}} error={touched && error}>
+            <Form.Field style={{position: 'relative', paddingRight: 10}} inline={inline} error={touched && error}>
                 {label && <label>{label}</label>}
                 <input
                     {...input}

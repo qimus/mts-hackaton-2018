@@ -31,8 +31,8 @@ const validate = (values) => {
         errors['login'] = 'Необходимо указать "Логин"';
     }
 
-    if (!values.password || values.password.length < 5) {
-        errors['password'] = 'Пароль должен содержать не менее 5 символов'
+    if (!values.password || values.password.length < 6) {
+        errors['password'] = 'Пароль должен содержать не менее 6 символов'
     }
 
     return errors;

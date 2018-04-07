@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
+import {
+    Grid
+} from 'semantic-ui-react'
 
 import LoginForm from './form'
 
 export default class LoginPage extends Component {
     render() {
         return (
-            <LoginForm/>
+            <Grid.Column textAlign={'center'} verticalAlign={'middle'}>
+                <LoginForm/>
+            </Grid.Column>
         )
     }
 }
