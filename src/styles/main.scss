@@ -18,3 +18,77 @@
     }
   }
 }
+
+//specialization
+
+.specialization {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+
+  &.hard_work {
+    background: url("../resource/specializations/hard_work.png");
+    background-size: 40px;
+  }
+
+  &.care {
+    background: url("../resource/specializations/care.png");
+    background-size: 40px;
+  }
+
+  &.catcher {
+    background: url("../resource/specializations/catcher.png");
+    background-size: 40px;
+  }
+
+  &.escort {
+    background: url("../resource/specializations/escort.png");
+    background-size: 40px;
+  }
+
+  &.manager_helper {
+    background: url("../resource/specializations/manager_helper.png");
+    background-size: 40px;
+  }
+
+  &.photo_video {
+    background: url("../resource/specializations/photo_video.png");
+    background-size: 40px;
+  }
+
+  &.regular_work {
+    background: url("../resource/specializations/regular_work.png");
+    background-size: 40px;
+  }
+
+  &.sponsor {
+    background: url("../resource/specializations/sponsor.png");
+    background-size: 40px;
+  }
+
+  &.temporary_home {
+    background: url("../resource/specializations/temporary_home.png");
+    background-size: 40px;
+  }
+
+  &.transport {
+    background: url("../resource/specializations/transport.png");
+    background-size: 40px;
+  }
+
+  &.writing_pr {
+    background: url("../resource/specializations/writing_pr.png");
+    background-size: 40px;
+  }
+
+  &.zoo {
+    background: url("../resource/specializations/zoo.png");
+    background-size: 40px;
+  }
+
+  &.human {
+    background: url("../resource/specializations/human.png");
+    background-size: 40px;
+  }
+
+}

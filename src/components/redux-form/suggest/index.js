@@ -83,6 +83,9 @@ export default class Suggest extends Component {
 
         const handleChange = (e, { value }) => {
             input.onChange(value);
+            if (this.props.handleChange) {
+                this.props.handleChange({value});
+            }
         };
 
         const handleBlur = (e, { value }) => {

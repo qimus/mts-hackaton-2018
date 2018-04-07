@@ -47,11 +47,12 @@ class LoginForm extends Component {
         }
     }
 
-    authenticate = (values) => {
+    authenticate = async (values) => {
         const { login, password } = values;
 
         try {
-            this.props.auth({ login, password });
+            await this.props.auth({ login, password });
+            this.props.history.push('/profile');
         } catch (e) {
             console.log(e);
         }

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { reduxForm, Field, formValueSelector, change } from 'redux-form'
+import { reduxForm, Field, formValueSelector, change, SubmissionError } from 'redux-form'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import _ from 'lodash'
 import {
     Form,
     Message,
@@ -12,7 +13,10 @@ import TextInput from 'components/redux-form/text-input'
 import Dropdown from 'components/redux-form/suggest'
 import Search from 'components/redux-form/search'
 import inline from 'components/redux-form/inline'
+import Specializations from './specialization'
 import api from 'constants/urls'
+import request from 'utils/request'
+import { register } from 'actions/user'
 
 import logo from 'resource/logo.png'
 
@@ -36,27 +40,53 @@ const orgTypes = [
 ];
 
 const TYPE_ORG = 2;
+const TYPE_SPONSOR = 3;
 
 const InlineDropdown = inline(Dropdown);
 const InlineSearch = inline(Search);
 const InlineText = inline(TextInput);
+const InlineSpecializations = inline(Specializations);
 
 class SignUpForm extends Component {
 
     state = {
-        orgNotFound: false
+        orgNotFound: false,
+        specializations: []
     };
 
-    register = () => {
+    register = async (values) => {
 
+        let data = {
+            login: values.login,
+            name: values.name,
+            phone: values.phone,
+            city_id: values.city_id,
+            type_id: values.type_id,
+            password: values.password,
+            're-password': values.re_password,
+            organization_id: _.get(values, 'organization.id'),
+            extra: values.extra,
+            specializations: values.specializations
+        };
+
+        try {
+            await this.props.register(data);
+        } catch (e) {
+            throw new SubmissionError(e.response.data.errors);
+        }
     };
 
-    handleBlurOrganization = (params) => {
-        const { results } = params;
-
+    handleBlurOrganization = () => {
         this.setState({
             orgNotFound: true
         })
+    };
+
+    handleLoadSpecialization = async ({ value }) => {
+        let response = await request.get(`${api.specializations}`, {user_type_id: value});
+        this.setState({
+            specializations: _.get(response, 'data.result', [])
+        });
     };
 
     handleOrganizationSelect = ({ contacts = {}}) => {
@@ -107,15 +137,40 @@ class SignUpForm extends Component {
                     />
                     <Field
                         component={InlineDropdown}
+                        eager
+                        ajaxSource={api.cities}
+                        name={'city_id'}
+                        label={'Город'}
+                        placeholder={'Город'}
+                    />
+                    <Field
+                        component={InlineDropdown}
                         search={false}
                         ajaxSource={api.userTypes}
+                        handleChange={this.handleLoadSpecialization}
                         eager
                         icon={'phone'}
-                        name={'userType'}
+                        name={'type_id'}
                         label={'Тип пользователя'}
                         placeholder={'Тип пользователя'}
                     />
-                    {userType == TYPE_ORG && (
+                    <Field
+                        component={InlineText}
+                        icon={'lock'}
+                        name={'password'}
+                        type={'password'}
+                        label={'Пароль'}
+                        placeholder={'Пароль'}
+                    />
+                    <Field
+                        component={InlineText}
+                        icon={'lock'}
+                        name={'re_password'}
+                        type={'password'}
+                        label={'Повторите пароль'}
+                        placeholder={'Повторите пароль'}
+                    />
+                    {userType == TYPE_SPONSOR && (
                         <Field
                             component={InlineDropdown}
                             search={false}
@@ -125,17 +180,7 @@ class SignUpForm extends Component {
                             placeholder={'Тип'}
                         />
                     )}
-                    {userType == TYPE_ORG && orgType == TYPE_ORG && (
-                        <Field
-                            component={InlineDropdown}
-                            eager
-                            ajaxSource={api.cities}
-                            name={'cityId'}
-                            label={'Город'}
-                            placeholder={'Город'}
-                        />
-                    )}
-                    {userType == TYPE_ORG && orgType == TYPE_ORG && cityId && (
+                    {(userType == TYPE_SPONSOR && orgType == TYPE_ORG || userType == TYPE_ORG) && cityId && (
                         <Field
                             component={InlineSearch}
                             ajaxSource={`${api.organizations}?city_id=${cityId}`}
@@ -148,12 +193,12 @@ class SignUpForm extends Component {
                             placeholder={'Организация'}
                         />
                     )}
-                    {userType == TYPE_ORG && orgType == TYPE_ORG && cityId && (organization.id || this.state.orgNotFound) && (
+                    {(userType == TYPE_SPONSOR && orgType == TYPE_ORG || userType == TYPE_ORG) && cityId && (organization.id || this.state.orgNotFound) && (
                         <div>
                             <Field
                                 disabled={organization.id}
                                 component={InlineText}
-                                name={'address'}
+                                name={'extra.address'}
                                 type={'text'}
                                 label={'Адрес'}
                                 placeholder={'Адрес'}
@@ -161,7 +206,7 @@ class SignUpForm extends Component {
                             <Field
                                 disabled={organization.id}
                                 component={InlineText}
-                                name={'organization_email'}
+                                name={'extra.email'}
                                 type={'text'}
                                 label={'Email'}
                                 placeholder={'Email'}
@@ -169,29 +214,21 @@ class SignUpForm extends Component {
                             <Field
                                 disabled={organization.id}
                                 component={InlineText}
-                                name={'inn'}
+                                name={'extra.inn'}
                                 type={'text'}
                                 label={'ИНН'}
                                 placeholder={'ИНН'}
                             />
                         </div>
                     )}
-                    <Field
-                        component={InlineText}
-                        icon={'lock'}
-                        name={'password'}
-                        type={'password'}
-                        label={'Пароль'}
-                        placeholder={'Пароль'}
-                    />
-                    <Field
-                        component={InlineText}
-                        icon={'lock'}
-                        name={'password_repeat'}
-                        type={'password'}
-                        label={'Повторите пароль'}
-                        placeholder={'Повторите пароль'}
-                    />
+                    {this.state.specializations.length > 0 && (
+                        <Field
+                            component={InlineSpecializations}
+                            items={this.state.specializations}
+                            name={'specializations'}
+                            label={'Выберите специализации'}
+                        />
+                    )}
 
                     <Button color={'teal'} size={'large'} fluid style={{marginTop: 10}}>Зарегистрироваться</Button>
                 </Form>
@@ -216,7 +253,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    changeValue: bindActionCreators(change, dispatch)
+    changeValue: bindActionCreators(change, dispatch),
+    register: bindActionCreators(register, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
