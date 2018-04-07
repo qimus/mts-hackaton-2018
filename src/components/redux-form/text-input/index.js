@@ -7,6 +7,17 @@ import {
 
 import InfoIcon from 'components/redux-form/common/info-icon'
 
+const style = {
+    field: {
+        position: 'relative',
+        paddingRight: 10
+    },
+    icon: {
+        position: 'absolute',
+        top: '25%'
+    }
+};
+
 const TextInput = ({
        label,
        placeholder, help, meta = {}, input, inline = false, readonly, disabled, horizontal = false, valueExpr, schema, isEdited = false, type = 'text', icon
@@ -16,7 +27,7 @@ const TextInput = ({
     const { touched = false, error = '' } = meta;
 
     if (readonly) {
-        extra['readOnly'] = true;
+        extra['readonly'] = true;
     }
 
     if (disabled) {
@@ -25,7 +36,7 @@ const TextInput = ({
 
     if (icon) {
         return (
-            <Form.Field style={{position: 'relative', paddingRight: 10}} inline={inline} error={touched && error}>
+            <Form.Field style={style.field} inline={inline} error={touched && error}>
                 {label && <label>{label}</label>}
                 <div className="ui left icon input">
                     <Icon name={icon}/>
@@ -35,19 +46,19 @@ const TextInput = ({
                         type={type}
                         placeholder={placeholder} />
                 </div>
-                {touched && error && <InfoIcon item={error} style={{position: 'absolute', top: '25%'}}/>}
+                {touched && error && <InfoIcon item={error} style={style.icon}/>}
             </Form.Field>
         )
     } else {
         return (
-            <Form.Field style={{position: 'relative', paddingRight: 10}} inline={inline} error={touched && error}>
+            <Form.Field style={style.field} inline={inline} error={touched && error}>
                 {label && <label>{label}</label>}
                 <input
                     {...input}
                     {...extra}
                     type={type}
                     placeholder={placeholder} />
-                {touched && error && <InfoIcon item={error} style={{position: 'absolute', top: '25%'}}/>}
+                {touched && error && <InfoIcon item={error} style={style.icon}/>}
             </Form.Field>
         )
     }

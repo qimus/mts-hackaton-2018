@@ -6,10 +6,20 @@ import {
     Search
 } from 'semantic-ui-react'
 
-import LabelExt from 'workflow/components/label-ext'
-import InfoIcon from 'workflow/components/redux-form/common/info-icon'
+import InfoIcon from 'components/redux-form/common/info-icon'
 
-import request from 'workflow/utils/request'
+import request from 'utils/request'
+
+const style = {
+    field: {
+        position: 'relative',
+        paddingRight: 10
+    },
+    icon: {
+        position: 'absolute',
+        top: '25%'
+    }
+};
 
 export default class SearchControl extends Component {
 
@@ -49,7 +59,7 @@ export default class SearchControl extends Component {
         if (this.props.handleResultSelect) {
             this.props.handleResultSelect(result);
         }
-        this.props.input.onChange(result.title);
+        this.props.input.onChange(result);
     };
 
     handleSearchChange = async (e, { value }) => {
@@ -60,7 +70,7 @@ export default class SearchControl extends Component {
             this.props.handleChange(value);
         }
 
-        input.onChange(value);
+        input.onChange({title: value});
 
         if (this.timerId) {
             clearTimeout(this.timerId);
@@ -71,13 +81,13 @@ export default class SearchControl extends Component {
 
             this.setState({
                 isLoading: false,
-                results: this._mapOptions(_.get(result, 'data.result.0.items'))
+                results: this._mapOptions(_.get(result, 'data.result'))
             })
         }, 1000);
     };
 
     render() {
-        const { label, meta: { touched = false, error = '' }, readonly = false, showNoResults, minCharacters, input } = this.props;
+        const { meta: { touched = false, error = '' }, readonly = false, showNoResults, minCharacters } = this.props;
         const { isLoading, results, value } = this.state;
 
         const hasError = touched && error !== '';
@@ -87,20 +97,26 @@ export default class SearchControl extends Component {
             params['readOnly'] = true;
         }
 
+        const handleBlur = (e, data) => {
+            if (this.props.handleBlur) {
+                this.props.handleBlur(data);
+            }
+        };
+
         return (
-            <Form.Field error={hasError}>
-                <LabelExt path={input.name} style={{ display: 'inline-block' }}>{label}</LabelExt>
-                {touched && error && <InfoIcon item={error}/>}
+            <Form.Field error={hasError} style={style.field}>
                 <Search
                     loading={isLoading}
                     results={results}
                     value={value}
+                    onBlur={handleBlur}
                     onResultSelect={this.handleResultSelect}
                     onSearchChange={this.handleSearchChange}
                     showNoResults={showNoResults}
                     minCharacters={minCharacters}
                     {...params}
                 />
+                {touched && error && <InfoIcon item={error} style={style.icon}/>}
             </Form.Field>
         )
     }

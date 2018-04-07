@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
+import { apiMiddleware } from 'redux-api-middleware'
 
 import rootReducer from '../reducers'
 
@@ -10,7 +11,7 @@ const logger = store => next => action => {
     return next(action);
 };
 
-let middlewares = [thunk];
+let middlewares = [ thunk, apiMiddleware ];
 
 if (ENV !== 'production' && 0) {
     middlewares.push(logger);

@@ -8,7 +8,7 @@ import LoginForm from './form'
 export default class LoginPage extends Component {
     render() {
         return (
-            <Grid.Column textAlign={'center'} verticalAlign={'middle'}>
+            <Grid.Column textAlign={'center'} verticalAlign={'middle'} width={5}>
                 <LoginForm/>
             </Grid.Column>
         )
