@@ -2,6 +2,7 @@ import React from "react";
 import classnames from "classnames";
 import marker from "resource/marker.png";
 import UserParameter from "./parameter";
+import UserProgress from "./progress";
 
 const UserInfo = (props) => {
     const parameters = [
@@ -34,7 +35,7 @@ const UserInfo = (props) => {
                     {parameters}
                 </div>
                 <div className={classnames("four wide column")}>
-                    level
+                    <UserProgress {...props}/>
                 </div>
             </div>
         </div>

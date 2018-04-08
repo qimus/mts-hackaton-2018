@@ -26,7 +26,7 @@
   padding: 3px!important;
 }
 
-.profile .specializations .label {
+.profile .specializations .label, .profile .achievements .label {
   font-size: 16px;
   padding: 8px 0px 5px 0px;
   margin-left: 45px;
@@ -42,10 +42,10 @@
   background: #DDD;
 }
 
-.profile .specializations {
+.profile .specializations, .profile .achievements {
   padding: 10px!important;
 }
 
-.profile .specializations > div {
+.profile .specializations > div, .profile .achievements > div {
   padding: 5px!important;
 }

@@ -97,3 +97,40 @@
   }
 
 }
+
+.achievement {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+
+  &.hard_worker {
+    background: url("../resource/achievements/hard_worker.png");
+    background-size: 40px;
+  }
+
+  &.active_people {
+    background: url("../resource/achievements/active_people.png");
+    background-size: 40px;
+  }
+
+  &.master_pristroya {
+    background: url("../resource/achievements/master_pristroya.png");
+    background-size: 40px;
+  }
+
+  &.nadejnoe_plecho {
+    background: url("../resource/achievements/nadejnoe_plecho.png");
+    background-size: 40px;
+  }
+
+  &.regular_vol {
+    background: url("../resource/achievements/regular_vol.png");
+    background-size: 40px;
+  }
+
+  &.verbovshik {
+    background: url("../resource/achievements/verbovshik.png");
+    background-size: 40px;
+  }
+
+}

@@ -61,15 +61,15 @@ class AddEvent extends Component {
             city_id: user.city.id,
             activity_template_id: values.activity_template_id,
             organization_id: user.organization.id,
-            start_at: values.start_at,
-            finish_at: values.finish_at,
+            start_at: moment(values.start_at).format('YYYY-MM-DD HH:mm:ss'),
+            finish_at: moment(values.finish_at).format('YYYY-MM-DD HH:mm:ss'),
             is_contacts_public: values.is_contacts_public,
             ...(_.get(values, 'address.coordinates', {}))
         };
 
         try {
             await this.props.createActivity(data);
-            this.props.history.push('/activities');
+            this.props.history.push('/events');
         } catch (e) {
             throw new SubmissionError(e.response.data.errors);
         }
