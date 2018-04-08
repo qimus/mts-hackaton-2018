@@ -11,7 +11,12 @@ import { getUser, logout } from 'actions/user'
 
 import logo from 'resource/logo.png'
 
-@withRouter
+import {
+    TYPE_ORG,
+    TYPE_SPONSOR,
+    TYPE_VOLUNTEER
+} from 'constants/user'
+
 class TopMenu extends Component {
     state = { activeItem: 'home' };
 
@@ -20,7 +25,6 @@ class TopMenu extends Component {
     }
 
     routeTo(path) {
-        console.log(path);
         this.props.history.push(path);
     };
 
@@ -34,20 +38,65 @@ class TopMenu extends Component {
         }
     };
 
+    isActiveMenuItem = (name) => {
+        const { location: { pathname } } = this.props;
+
+        switch (name) {
+            case 'home':
+                return pathname === '/';
+            case 'profile':
+                return pathname === '/profile';
+            case 'organizations':
+                return pathname === '/organizations';
+            case 'events':
+                return pathname === '/events';
+            case 'volunteers':
+                return pathname === '/volunteers';
+        }
+
+        return false;
+    };
+
     render() {
-        const { activeItem } = this.state;
         const { user } = this.props;
+        const isAuthorized = user.id > 0;
 
         return (
             <Menu size='small' color={'black'} inverted>
-                <Menu.Item name='home' active={activeItem === 'home'} onClick={this.routeTo.bind(this, '/')}>
+                <Menu.Item name='home' active={this.isActiveMenuItem('home')} onClick={this.routeTo.bind(this, '/')}>
                     <img src={logo} />
                 </Menu.Item>
-                {/*<Menu.Item name='messages' active={activeItem === 'messages'} onClick={this.handleItemClick} />*/}
+
+                <Menu.Item name='organizations' active={this.isActiveMenuItem('organizations')} onClick={this.routeTo.bind(this, '/organizations')}>
+                    Оргагизации
+                </Menu.Item>
+
+                <Menu.Item name='events' active={this.isActiveMenuItem('events')} onClick={this.routeTo.bind(this, '/events')}>
+                    События
+                </Menu.Item>
+
+                <Menu.Item name='volunteers' active={this.isActiveMenuItem('volunteers')} onClick={this.routeTo.bind(this, '/volunteers')}>
+                    Волонтеры
+                </Menu.Item>
+
+                {user.type_id == TYPE_ORG && (
+                    [
+                        <Menu.Item name='add_event' active={this.isActiveMenuItem('add_event')} onClick={this.routeTo.bind(this, '/events/new')}>
+                            Добавить событие
+                        </Menu.Item>
+                    ]
+                )}
 
                 <Menu.Menu position='right'>
+                    {isAuthorized && (
+                        [
+                            <Menu.Item name='profile' active={this.isActiveMenuItem('profile')} onClick={this.routeTo.bind(this, '/profile')}>
+                                Профиль
+                            </Menu.Item>
+                        ]
+                    )}
                     <Menu.Item onClick={this.handleLogin}>
-                        <Button primary>{user.id > 0 ? 'Выйти' : 'Войти'}</Button>
+                        <Button primary>{isAuthorized ? 'Выйти' : 'Войти'}</Button>
                     </Menu.Item>
                 </Menu.Menu>
             </Menu>
@@ -64,4 +113,4 @@ const mapDispatchToProps = (dispatch) => ({
     logout: bindActionCreators(logout, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopMenu)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TopMenu))

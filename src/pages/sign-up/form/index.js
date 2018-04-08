@@ -5,10 +5,8 @@ import { bindActionCreators } from 'redux'
 import _ from 'lodash'
 import {
     Form,
-    Message,
     Header,
-    Button,
-    Grid
+    Button
 } from 'semantic-ui-react'
 import TextInput from 'components/redux-form/text-input'
 import Dropdown from 'components/redux-form/suggest'
