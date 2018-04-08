@@ -17,6 +17,10 @@ import {
     TYPE_VOLUNTEER
 } from 'constants/user'
 
+const menuStyle = {
+    borderRadius: 0
+};
+
 class TopMenu extends Component {
     state = { activeItem: 'home' };
 
@@ -62,7 +66,7 @@ class TopMenu extends Component {
         const isAuthorized = user.id > 0;
 
         return (
-            <Menu size='small' color={'black'} inverted>
+            <Menu size='small' color={'black'} inverted style={menuStyle}>
                 <Menu.Item name='home' active={this.isActiveMenuItem('home')} onClick={this.routeTo.bind(this, '/')}>
                     <img src={logo} />
                 </Menu.Item>

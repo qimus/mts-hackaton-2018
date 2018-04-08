@@ -6,5 +6,7 @@ export default {
     userTypes: `${apiBaseUrl}/user-types`,
     cities: `${apiBaseUrl}/cities`,
     organizations: `${apiBaseUrl}/organizations`,
-    specializations: `${apiBaseUrl}/specializations`
+    specializations: `${apiBaseUrl}/specializations`,
+    activities: `${apiBaseUrl}/activities`,
+    organizations: `${apiBaseUrl}/organizations`,
 }
