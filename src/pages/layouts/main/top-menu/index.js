@@ -52,6 +52,8 @@ class TopMenu extends Component {
                 return pathname === '/profile';
             case 'organizations':
                 return pathname === '/organizations';
+            case 'sponsors':
+                return pathname === '/sponsors';
             case 'events':
                 return pathname === '/events';
             case 'volunteers':
@@ -73,6 +75,10 @@ class TopMenu extends Component {
 
                 <Menu.Item name='organizations' active={this.isActiveMenuItem('organizations')} onClick={this.routeTo.bind(this, '/organizations')}>
                     Оргагизации
+                </Menu.Item>
+
+                <Menu.Item name='sponsors' active={this.isActiveMenuItem('sponsors')} onClick={this.routeTo.bind(this, '/sponsors')}>
+                    Спонсоры
                 </Menu.Item>
 
                 <Menu.Item name='events' active={this.isActiveMenuItem('events')} onClick={this.routeTo.bind(this, '/events')}>
