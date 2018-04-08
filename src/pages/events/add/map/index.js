@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import { GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps'
+import React, {Component} from 'react'
+import {withGoogleMap, withScriptjs, Marker, GoogleMap} from "react-google-maps";
 
 class Map extends Component {
 
-    state = {
-
-    };
-
     map = null;
+
+    state = {
+        marker: null
+    }
 
     componentWillMount() {
         // // grab our googleMaps obj from whever she may lay
@@ -28,41 +28,47 @@ class Map extends Component {
 
     }
 
-    componentDidMount() {
-        this.geocode('Новосибирск')
-            .then(location => {
-                console.log(location.lat(), location.lng);
-                this.map.panTo(location);
-            })
-    }
-
-    geocode = (address) => {
+    geocode = async (address) => {
         return new Promise((resolve, reject) => {
             this.geocoder.geocode({ address }, (results, status) => {
                 if (status == 'OK') {
-                    resolve(results[0].geometry.location);
+                    resolve(results[0].geometry.location, results[0]);
                 } else {
-                    reject('Geocode was not successful for the following reason: ' + status);
+                    reject('Geocode was not successful for the following reason:{ ' + status);
                 }
             });
         })
     };
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.marker) {
+            this.map.panTo(nextProps.marker);
+        }
+    }
+
+    setCenter = (address) => {
+        this.geocode(address)
+            .then(location => {
+                this.map.panTo(location);
+            })
+    };
+
+    componentDidMount() {
+        this.setCenter(this.props.city);
+    }
+
     render() {
-        //const { input, meta: { touched, error } } = this.props;
-
-        console.log(this.props);
-
         return (
             <GoogleMap
-                ref={(ref) => {this.map = ref}}
+                ref={(ref) => {
+                    this.map = ref
+                }}
                 defaultZoom={12}
-                defaultCenter={{ lat: -34.397, lng: 150.644 }}
             >
-                {/*{props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}*/}
+                {this.props.marker && <Marker position={this.props.marker}/>}
             </GoogleMap>
         )
     }
 }
 
-export default withScriptjs(withGoogleMap(Map))
+export default withScriptjs(withGoogleMap(Map));

@@ -10,7 +10,7 @@ import {
 
 const initState = {
     isFetching: false,
-    id: null
+    id: undefined
 };
 
 export default function user(state = initState, action) {
@@ -19,7 +19,7 @@ export default function user(state = initState, action) {
             return {...state, isFetching: true};
         case USER_LOGIN_SUCCESS:
         case USER_SUCCESS:
-            return {...state, isFetching: false, ...action.payload, error: ''};
+            return {...state, id: null, isFetching: false, ...action.payload, error: ''};
         case USER_LOGIN_ERROR:
         case USER_ERROR:
             return {...state, isFetching: false, error: action.error};

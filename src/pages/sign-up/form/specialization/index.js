@@ -7,7 +7,7 @@ import {
 } from 'semantic-ui-react'
 
 
-const Specializations = ({ input, items = []}) => {
+const Specializations = ({ input, items = [], columns = 2, withCheckboxes = true}) => {
 
     let cells = [], rows = [];
 
@@ -25,18 +25,26 @@ const Specializations = ({ input, items = []}) => {
         };
 
         let name = `${input.name}[${item.id}]`;
+
+        if ((i % columns == 0) && i > 0) {
+            rows.push(<Table.Row>{cells}</Table.Row>);
+            cells = [];
+        }
+
         cells.push(
             <Table.Cell>
                 <Header as={'h4'} image style={{marginTop: 10}}>
                     <label>
-                        <Checkbox
-                            {...input}
-                            onChange={handleChange}
-                            onBlur={() => {}}
-                            name={name}
-                            value={item.id}
-                            style={{marginRight: 5, paddingRight: 5}}
-                        />
+                        {withCheckboxes && (
+                            <Checkbox
+                                {...input}
+                                onChange={handleChange}
+                                onBlur={() => {}}
+                                name={name}
+                                value={item.id}
+                                style={{marginRight: 5, paddingRight: 5}}
+                            />
+                        )}
                         <Header.Content style={{paddingRight: 5}}>
                             {item.name}
                         </Header.Content>
@@ -46,9 +54,8 @@ const Specializations = ({ input, items = []}) => {
             </Table.Cell>
         );
 
-        if (i % 2) {
+        if (i == items.length && (i % columns != 0)) {
             rows.push(<Table.Row>{cells}</Table.Row>);
-            cells = [];
         }
     });
 

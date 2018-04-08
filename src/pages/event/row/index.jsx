@@ -49,12 +49,17 @@ export default class EventRow extends Component {
                                 <List.Item>
                                     <strong>Организатор: </strong>
                                     <Link to={`/organizations/${event.organization.id}`}>
-                                        {event.organization.name}
-                                        {event.organization.owner && (
-                                            (<Link to={`/users/${event.organization.owner.id}`}>{event.organization.owner.name}</Link>)
-                                        )}
+                                        {event.organization.name} ({event.organization.level.name} ур.)
                                     </Link>
                                 </List.Item>
+
+                                {event.organization.owner && (
+                                    <List.Item>
+                                        <strong>Представитель: </strong>
+                                        <Link to={`/users/${event.organization.owner.id}`}>{event.organization.owner.name}</Link>
+                                    </List.Item>
+
+                                )}
                             </List>
 
                             <Header as={'h3'}>
@@ -77,7 +82,7 @@ export default class EventRow extends Component {
                                             <List.Content>
                                                 <List.Header>
                                                     <Link to={`/users/${user.id}`}>
-                                                        {user.name}
+                                                        {user.name} ({user.level} ур.)
                                                     </Link>
                                                 </List.Header>
                                                 {user.phone}

@@ -35,7 +35,7 @@ class OrganizationsContainer extends Component {
         return {
             page,
             cityId,
-            isSponsor: false
+            isSponsor: this.props.isSponsor
         }
     }
 

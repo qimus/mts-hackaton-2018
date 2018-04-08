@@ -70,7 +70,7 @@ export default class EventsList extends Component {
                                                             <List.Content>
                                                                 <List.Header>
                                                                     <Link to={`/users/${user.id}`}>
-                                                                        {user.name}
+                                                                        {user.name} ({user.level} ур.)
                                                                     </Link>
                                                                 </List.Header>
                                                                 {user.phone}
