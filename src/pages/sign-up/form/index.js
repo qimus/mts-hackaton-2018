@@ -67,7 +67,7 @@ class SignUpForm extends Component {
             password: values.password,
             're-password': values.re_password,
             organization_id: _.get(values, 'organization.id'),
-            extra: { ...values.extra, name: values.organization.title },
+            extra: { ...(values.extra || {}), name: _.get(values, 'organization.title') },
             specializations: values.specializations
         };
 

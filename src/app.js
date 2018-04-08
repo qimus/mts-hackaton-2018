@@ -25,6 +25,7 @@ import SignUpPage from 'pages/sign-up'
 import EventsPage from 'pages/events'
 import VolunteersPage from 'pages/volunteers'
 import OrganizationsPage from 'pages/organizations'
+import AddEventPage from 'pages/events/add'
 
 const RouteWithLayout = ({layout:Layout, page:component, privacy = false, ...rest}) => {
     return (
@@ -55,6 +56,7 @@ export default class App extends Component {
                     <Switch>
                         <RouteWithLayout exact layout={MainLayout} path={'/'} page={MainPage}/>
                         <RouteWithLayout exact layout={MainLayout} path={'/events'} page={EventsPage}/>
+                        <RouteWithLayout exact layout={MainLayout} path={'/events/new'} page={AddEventPage}/>
                         <RouteWithLayout exact layout={MainLayout} path={'/organizations'} page={OrganizationsPage}/>
                         <RouteWithLayout exact layout={MainLayout} path={'/volunteers'} page={VolunteersPage}/>
                         <RouteWithLayout exact layout={EmptyLayout} path={'/sign-in'} page={LoginPage}/>
