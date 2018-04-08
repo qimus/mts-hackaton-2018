@@ -33,3 +33,18 @@ export function getActivity(id) {
         }
     }
 }
+
+export function createActivity(values) {
+    return async (dispatch) => {
+
+        try {
+            let response = await request.post(`${api.activities}`, values);
+            let result = checkResponse(response);
+
+        } catch (e) {
+            console.log(e);
+
+            throw e;
+        }
+    }
+}

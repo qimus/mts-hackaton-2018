@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { reduxForm, Field } from 'redux-form'
+import {reduxForm, Field, SubmissionError, formValueSelector} from 'redux-form'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 import moment from 'moment'
 import { withRouter } from 'react-router-dom'
 import {
@@ -11,15 +13,17 @@ import {
     Button
 } from 'semantic-ui-react'
 
+import { createActivity } from 'actions/event'
+
 import inline from 'components/redux-form/inline'
 import Text from 'components/redux-form/text-input'
 import TextArea from 'components/redux-form/text-area'
 import Datepicker from 'components/redux-form/date-picker'
 import Specializations from 'pages/sign-up/form/specialization'
 import RadioGroup from 'components/redux-form/radiogroup'
-import request from 'utils/request'
 import api from 'constants/urls'
 import EventMap from './event-map'
+import Dropdown from 'components/redux-form/suggest'
 
 const inlineText = inline(Text);
 const inlineDatepicker = inline(Datepicker);
@@ -27,6 +31,7 @@ const inlineSpec = inline(Specializations);
 const inlineMap = inline(EventMap);
 const inlineRadio = inline(RadioGroup);
 const inlineTextarea = inline(TextArea);
+const InlineDropdown = inline(Dropdown);
 
 const FORM_ID = 'new_event';
 
@@ -46,18 +51,35 @@ class AddEvent extends Component {
         specializations: []
     };
 
-    async componentDidMount() {
+    createEvent = async (values) => {
+
         const { user } = this.props;
-        if (user.id) {
-            let response = await request.get(`${api.specializations}`);
+
+        const data = {
+            description: values.description,
+            address: _.get(values, 'address.address'),
+            city_id: user.city.id,
+            organization_id: user.organization.id,
+            start_at: values.start_at,
+            finish_at: values.finish_at,
+            ...(values.address.coordinates|| {})
+        };
+
+        try {
+            await this.props.createActivity(data);
+            this.props.history.push('/activities');
+        } catch (e) {
+            throw new SubmissionError(e.response.data.errors);
+        }
+    };
+
+    handleLoadSpecializations = ({ value, options = []}) => {
+        let selectedOption = _.find(options, {id: value});
+        if (selectedOption) {
             this.setState({
-                specializations: _.get(response, 'data.result', [])
+                specializations: selectedOption.specializations
             });
         }
-    }
-
-    createEvent = async (values) => {
-        console.log(values);
     };
 
     render() {
@@ -82,7 +104,7 @@ class AddEvent extends Component {
                                 label={'Расскажите немного об этом'}
                                 component={inlineTextarea}/>
                             <Field
-                                name={'start_date'}
+                                name={'start_at'}
                                 label={'Старт'}
                                 timeFormat={'HH:mm'}
                                 showTimeSelect
@@ -93,7 +115,7 @@ class AddEvent extends Component {
                                 component={inlineDatepicker}
                                 labelWidth={3}/>
                             <Field
-                                name={'end_date'}
+                                name={'finish_at'}
                                 label={'Завершение'}
                                 timeFormat={'HH:mm'}
                                 showTimeSelect
@@ -103,10 +125,22 @@ class AddEvent extends Component {
                                 }}
                                 component={inlineDatepicker}
                                 labelWidth={3}/>
+                            <Field
+                                component={InlineDropdown}
+                                search={false}
+                                labelWidth={3}
+                                ajaxSource={api.activityTemplates}
+                                handleChange={this.handleLoadSpecializations}
+                                eager
+                                name={'activity_template_id'}
+                                label={'Тип события'}
+                                placeholder={'Тип события'}
+                            />
                             {this.state.specializations.length > 0 && (
                                 <Field
                                     items={this.state.specializations}
                                     component={inlineSpec}
+                                    withCheckboxes={false}
                                     columns={2}
                                     name={'specializations'}
                                     label={'Выберите специализации'}/>
@@ -143,8 +177,17 @@ AddEvent = reduxForm({
     form: FORM_ID
 })(AddEvent);
 
+const selector = formValueSelector(FORM_ID);
+
 const mapStateToProps = (state) => ({
-    user: state.user
+    user: state.user,
+    formValues: {
+        activityTemplates: selector(state, 'activity_template_id')
+    }
 });
 
-export default withRouter(connect(mapStateToProps)(AddEvent))
+const mapDispatchToProps = (dispatch) => ({
+    createActivity: bindActionCreators(createActivity, dispatch)
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddEvent))
