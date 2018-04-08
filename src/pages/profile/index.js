@@ -8,7 +8,6 @@ import UserInfo from "./info";
 import UserSpecialization from "./specialization";
 
 class Profile extends Component {
-
     render() {
         return (
             <div className={classnames('profile', 'ui grid')}>
