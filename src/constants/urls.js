@@ -8,5 +8,5 @@ export default {
     organizations: `${apiBaseUrl}/organizations`,
     specializations: `${apiBaseUrl}/specializations`,
     activities: `${apiBaseUrl}/activities`,
-    organizations: `${apiBaseUrl}/organizations`,
+    activityTemplates: `${apiBaseUrl}/activity-templates`,
 }

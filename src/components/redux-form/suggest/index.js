@@ -81,10 +81,10 @@ export default class Suggest extends Component {
             titleMap = this.state.titleMap;
         }
 
-        const handleChange = (e, { value }) => {
-            input.onChange(value);
+        const handleChange = (e, params) => {
+            input.onChange(params.value);
             if (this.props.handleChange) {
-                this.props.handleChange({value});
+                this.props.handleChange(params);
             }
         };
 
