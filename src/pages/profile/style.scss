@@ -1,0 +1,51 @@
+.profile {
+ }
+
+.profile .avatar {
+  margin: 1rem!important;
+}
+
+.profile .user-info .name {
+  text-transform: uppercase;
+  color: #009900;
+}
+
+.profile .user-info .header {
+  font-size: 2em;
+}
+
+.profile .user-info .city {
+  color: #009DD9;
+}
+
+.profile .user-info > .segment {
+  padding: 1em 1em;
+}
+
+.profile .property {
+  padding: 3px!important;
+}
+
+.profile .specializations .label {
+  font-size: 16px;
+  padding: 8px 0px 5px 0px;
+  margin-left: 45px;
+}
+
+.profile .specializations .add {
+  border: 1px solid #d0d0d0;
+  border-radius: 35px;
+  cursor: pointer;
+}
+
+.profile .specializations .add:hover {
+  background: #DDD;
+}
+
+.profile .specializations {
+  padding: 10px!important;
+}
+
+.profile .specializations > div {
+  padding: 5px!important;
+}
