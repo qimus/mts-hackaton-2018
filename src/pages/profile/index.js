@@ -14,7 +14,7 @@ class Profile extends Component {
         return (
             <div className={classnames('profile', 'ui grid')}>
                 <div className="row">
-                    <div className={classnames("column four wide stretched", "avatar")}>
+                    <div className={classnames("column four wide stretched segment", "avatar")}>
                         <UserAvatar url={this.props.user.avatar_url} />
                     </div>
                     <div className={classnames("column eight wide segment", "user-info")}>
