@@ -53,14 +53,15 @@ export default class EventRow extends Component {
                                     </Link>
                                 </List.Item>
 
-                                {event.organization.owner && (
-                                    <List.Item>
-                                        <strong>Представитель: </strong>
-                                        <Link to={`/users/${event.organization.owner.id}`}>{event.organization.owner.name}</Link>
-                                    </List.Item>
-
-                                )}
                             </List>
+
+                            {event.organization.members.length > 0 && (
+                                <List.Item>
+                                    <strong>Представитель: </strong>
+                                    <Link to={`/users/${event.organization.owner.id}`}>{event.organization.owner.name}</Link>
+                                </List.Item>
+
+                            )}
 
                             <Header as={'h3'}>
                                 <Link to={`/activities/${event.id}/participants`}>

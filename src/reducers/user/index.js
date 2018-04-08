@@ -22,7 +22,7 @@ export default function user(state = initState, action) {
             return {...state, id: null, isFetching: false, ...action.payload, error: ''};
         case USER_LOGIN_ERROR:
         case USER_ERROR:
-            return {...state, isFetching: false, error: action.error};
+            return {...state, isFetching: false, id: null, error: action.error};
         case USER_LOGOUT:
             return initState;
         default:

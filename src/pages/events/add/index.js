@@ -64,7 +64,7 @@ class AddEvent extends Component {
             start_at: values.start_at,
             finish_at: values.finish_at,
             is_contacts_public: values.is_contacts_public,
-            ...(values.address.coordinates|| {})
+            ...(_.get(values, 'address.coordinates', {}))
         };
 
         try {
