@@ -59,6 +59,7 @@ class AddEvent extends Component {
             description: values.description,
             address: _.get(values, 'address.address'),
             city_id: user.city.id,
+            activity_template_id: values.activity_template_id,
             organization_id: user.organization.id,
             start_at: values.start_at,
             finish_at: values.finish_at,
