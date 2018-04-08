@@ -74,7 +74,7 @@ class TopMenu extends Component {
                 </Menu.Item>
 
                 <Menu.Item name='organizations' active={this.isActiveMenuItem('organizations')} onClick={this.routeTo.bind(this, '/organizations')}>
-                    Оргагизации
+                    Организации
                 </Menu.Item>
 
                 <Menu.Item name='sponsors' active={this.isActiveMenuItem('sponsors')} onClick={this.routeTo.bind(this, '/sponsors')}>
