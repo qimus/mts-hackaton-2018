@@ -6,7 +6,8 @@ import {
     List,
     Image,
     Grid,
-    Segment
+    Segment,
+    Label
 } from 'semantic-ui-react';
 
 import { Link } from 'react-router-dom';
@@ -30,12 +31,17 @@ export default class OrganizationsList extends Component {
                 {organizations.map((organization) => {
                     return (
                         <Item key={organization.id} style={{marginBottom: 30}}>
+
                             <Item.Content>
                                 <Item.Header>
                                     <Link to={`/organizations/${organization.id}`}>{organization.name} ({organization.level.name} ур.)</Link>
                                 </Item.Header>
                                 {organization.contacts && (
+
                                     <Item.Description>
+                                        {organization.is_verified && (
+                                            <Label style={{marginLeft: -30}} as={'a'} color={'green'} ribbon={'right'}>Проверено</Label>
+                                        )}
                                         <List>
                                             <List.Item>
                                                 <List.Icon name={'marker'} />
