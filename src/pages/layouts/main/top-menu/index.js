@@ -36,7 +36,7 @@ class TopMenu extends Component {
         const { user } = this.props;
         if (user.id > 0) {
             this.props.logout();
-            this.routeTo('/')
+            this.routeTo('/sign-in')
         } else {
             this.routeTo('/sign-in');
         }
