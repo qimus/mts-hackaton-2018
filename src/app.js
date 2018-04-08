@@ -26,6 +26,7 @@ import EventsPage from 'pages/events/index'
 import EventPage from 'pages/event/index'
 import VolunteersPage from 'pages/volunteers'
 import OrganizationsPage from 'pages/organizations'
+import OrganizationPage from 'pages/organization'
 import SponsorsPage from 'pages/sponsors'
 import AddEventPage from 'pages/events/add'
 
@@ -61,6 +62,7 @@ export default class App extends Component {
                         <RouteWithLayout exact layout={MainLayout} path={'/events/new'} page={AddEventPage}/>
                         <RouteWithLayout exact layout={MainLayout} path={'/events/:id'} page={EventPage}/>
                         <RouteWithLayout exact layout={MainLayout} path={'/organizations'} page={OrganizationsPage}/>
+                        <RouteWithLayout exact layout={MainLayout} path={'/organizations/:id'} page={OrganizationPage}/>
                         <RouteWithLayout exact layout={MainLayout} path={'/sponsors'} page={SponsorsPage}/>
                         <RouteWithLayout exact layout={MainLayout} path={'/volunteers'} page={VolunteersPage}/>
                         <RouteWithLayout exact layout={EmptyLayout} path={'/sign-in'} page={LoginPage}/>
