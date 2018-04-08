@@ -6,6 +6,10 @@ import {
 
 import TopMenu from './top-menu'
 
+const contentStyle = {
+    padding: '12px 24px'
+};
+
 export default class MainLayout extends Component {
     render() {
         return (
@@ -14,7 +18,7 @@ export default class MainLayout extends Component {
                     <Grid.Column width={16}>
                         <TopMenu/>
                     </Grid.Column>
-                    <Grid.Column width={16}>
+                    <Grid.Column width={16} style={contentStyle}>
                         {this.props.children}
                     </Grid.Column>
                 </Grid.Row>
