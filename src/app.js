@@ -28,6 +28,7 @@ import VolunteersPage from 'pages/volunteers'
 import OrganizationsPage from 'pages/organizations'
 import SponsorsPage from 'pages/sponsors'
 import AddEventPage from 'pages/events/add'
+import ProfilesPages from 'pages/profiles'
 
 const RouteWithLayout = ({layout:Layout, page:component, privacy = false, ...rest}) => {
     return (
@@ -65,6 +66,7 @@ export default class App extends Component {
                         <RouteWithLayout exact layout={MainLayout} path={'/volunteers'} page={VolunteersPage}/>
                         <RouteWithLayout exact layout={EmptyLayout} path={'/sign-in'} page={LoginPage}/>
                         <RouteWithLayout exact layout={EmptyLayout} path={'/sign-up'} page={SignUpPage}/>
+                        <RouteWithLayout exact privacy layout={MainLayout} path={'/profile/:id'} page={ProfilesPages}/>
                         <RouteWithLayout exact privacy layout={MainLayout} path={'/profile'} page={ProfilePage}/>
                         <Route component={NotFound} path={'*'}/>
                     </Switch>

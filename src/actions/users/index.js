@@ -32,3 +32,27 @@ export function getUsers({typeId, page}) {
         }
     }
 }
+
+export function getProfileUser({id}) {
+    return async (dispatch) => {
+        dispatch({
+            type: USERS_REQUEST,
+        });
+
+        try {
+            let response = await request.get(api.users + '/' + id);
+            let result = checkResponse(response);
+
+            dispatch({
+                type: USERS_SUCCESS,
+                payload: result
+            })
+
+        } catch (e) {
+            dispatch({
+                type: USERS_ERROR,
+                error: _.get(e, 'response.data.message')
+            });
+        }
+    }
+}
