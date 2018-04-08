@@ -1,16 +1,35 @@
 import React from "react";
 import classnames from "classnames";
 import marker from "resource/marker.png";
+import UserParameter from "./parameter";
 
 const UserInfo = (props) => {
+    const parameters = [
+        <UserParameter label={"E-mail"} value={props.login}/>,
+        <UserParameter label={"Телефон"} value={props.phone}/>,
+        <UserParameter label={"Тип пользователя"} value={props.type.name}/>,
+    ];
+
     return (
-        <div className={classnames('ui segment')}>
-            <div className={classnames("header block")}>
-                <span className={classnames("name")}>{props.name}</span>
-                <div className={classnames("city")} style={{float: "right"}}>
-                    <img src={marker} style={{verticalAlign: "middle"}} /> {props.city.name}
+        <div className={classnames('ui grid segment')}>
+            <div className={classnames("header row")}>
+                <div
+                    className={classnames(
+                        "name",
+                        "left floated six wide column"
+                    )}
+                    style={{paddingTop: "5px"}}
+                >
+                    {props.name}
+                </div>
+                <div className={classnames(
+                        "city",
+                        "right aligned six wide column"
+                )}>
+                <img src={marker} style={{verticalAlign: "middle"}} /> {props.city.name}
                 </div>
             </div>
+            {parameters}
         </div>
     );
 };
