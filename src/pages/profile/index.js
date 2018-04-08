@@ -6,6 +6,7 @@ import classnames from "classnames";
 import "./style.scss"
 import UserInfo from "./info";
 import UserSpecialization from "./specialization";
+import UserAchievement from "./achievement";
 
 class Profile extends Component {
     render() {
@@ -20,6 +21,7 @@ class Profile extends Component {
                         {this.props.user.type.id != 2 && (
                             <UserSpecialization collection={this.props.user.specializations} />
                         )}
+                        <UserAchievement collection={this.props.user.achievements} />
                     </div>
                 </div>
             </div>
