@@ -16,8 +16,14 @@ import Specializations from './specialization'
 import api from 'constants/urls'
 import request from 'utils/request'
 import { register } from 'actions/user'
+import { withRouter } from 'react-router'
 
 import logo from 'resource/logo.png'
+
+import {
+    TYPE_ORG,
+    TYPE_SPONSOR
+} from 'constants/user'
 
 const FORM_ID = 'sign-up';
 
@@ -37,9 +43,6 @@ const orgTypes = [
         name: 'Организация'
     }
 ];
-
-const TYPE_ORG = 2;
-const TYPE_SPONSOR = 3;
 
 const InlineDropdown = inline(Dropdown);
 const InlineSearch = inline(Search);
@@ -64,12 +67,13 @@ class SignUpForm extends Component {
             password: values.password,
             're-password': values.re_password,
             organization_id: _.get(values, 'organization.id'),
-            extra: values.extra,
+            extra: { ...values.extra, name: values.organization.title },
             specializations: values.specializations
         };
 
         try {
             await this.props.register(data);
+            this.props.history.push('/profile');
         } catch (e) {
             throw new SubmissionError(e.response.data.errors);
         }
@@ -249,9 +253,9 @@ const selector = formValueSelector(FORM_ID);
 
 const mapStateToProps = (state) => ({
     formValues: {
-        userType: selector(state, 'userType'),
+        userType: selector(state, 'type_id'),
         orgType: selector(state, 'orgType'),
-        cityId: selector(state, 'cityId'),
+        cityId: selector(state, 'city_id'),
         organization: selector(state, 'organization')
     }
 });
@@ -261,4 +265,4 @@ const mapDispatchToProps = (dispatch) => ({
     register: bindActionCreators(register, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignUpForm));
