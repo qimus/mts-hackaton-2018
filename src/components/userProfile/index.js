@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import UserAvatar from "./avatar";
 import classnames from "classnames";
+import _ from 'lodash'
 import "./style.scss"
 import UserInfo from "./info";
 import UserSpecialization from "./specialization";
@@ -16,7 +17,7 @@ class UserProfile extends Component {
                     </div>
                     <div className={classnames("column eight wide segment", "user-info")}>
                         <UserInfo {...this.props.user} currentUser={this.props.currentUser} />
-                        {this.props.user.type.id != 2 && (
+                        {_.get(this.props, 'user.type.id') != 2 && (
                             <UserSpecialization collection={this.props.user.specializations} canAdd={this.props.currentUser} />
                         )}
                         <UserAchievement collection={this.props.user.achievements} />

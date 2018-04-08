@@ -24,7 +24,7 @@ export default function user(state = initState, action) {
         case USER_ERROR:
             return {...state, isFetching: false, id: null, error: action.error};
         case USER_LOGOUT:
-            return initState;
+            return {...initState, id:null};
         default:
             return state;
     }
