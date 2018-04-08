@@ -5,10 +5,20 @@ import {
     Item,
     List,
     Image,
-    Label
+    Grid
 } from 'semantic-ui-react';
 
 import { Link } from 'react-router-dom';
+
+const specStyle = {
+    width: 40,
+    height: 40,
+};
+
+const itemStyle = {
+    padding: 0,
+    margin: '8px 8px 0 0'
+};
 
 export default class OrganizationsList extends Component {
     render() {
@@ -54,32 +64,60 @@ export default class OrganizationsList extends Component {
                                         </List>
                                     </Item.Description>
                                 )}
+
                                 <Item.Extra>
-                                    {organization.members.count >= 1 && (
-                                        <div>
-                                            <p>Участники ({organization.members.count}):</p>
+                                    <Grid columns={16}>
+                                        <Grid.Row>
+                                            <Grid.Column width={8}>
+                                                {organization.members.length >= 1 && (
+                                                    <div>
+                                                        <p>Представители ({organization.members.length}):</p>
 
-                                            <List horizontal={true}>
-                                                {organization.members.map((user) => {
-                                                    return (
-                                                        <List.Item key={user.id}>
-                                                            {user.avatar_url && (<Image avatar={true} src={user.avatar_url} /> )}
-                                                            {!user.avatar_url && (<List.Icon name={'user circle'} /> )}
-                                                            <List.Content>
-                                                                <List.Header>
-                                                                    <Link to={`/users/${user.id}`}>
-                                                                        {user.name} ({user.level} ур.)
-                                                                    </Link>
-                                                                </List.Header>
-                                                                {user.phone}
-                                                            </List.Content>
-                                                        </List.Item>
-                                                    )
-                                                })}
+                                                        <List horizontal={true}>
+                                                            {organization.members.map((user) => {
+                                                                return (
+                                                                    <List.Item key={user.id}>
+                                                                        {user.avatar_url && (<Image avatar={true} src={user.avatar_url} /> )}
+                                                                        {!user.avatar_url && (<List.Icon name={'user circle'} /> )}
+                                                                        <List.Content>
+                                                                            <List.Header>
+                                                                                <Link to={`/users/${user.id}`}>
+                                                                                    {user.name} ({user.level.name} ур.)
+                                                                                </Link>
+                                                                            </List.Header>
+                                                                            {user.phone}
+                                                                        </List.Content>
+                                                                    </List.Item>
+                                                                )
+                                                            })}
 
-                                            </List>
-                                        </div>
-                                    )}
+                                                        </List>
+                                                    </div>
+                                                )}
+                                            </Grid.Column>
+
+                                            <Grid.Column width={8}>
+                                                {organization.specializations.length >= 1 && (
+                                                    <div>
+                                                        <p>Специализация ({organization.specializations.length}):</p>
+
+                                                        <List horizontal={true}>
+                                                            {organization.specializations.map((specialization) => {
+                                                                return (
+                                                                    <List.Item style={itemStyle} key={specialization.id}>
+                                                                        <List.Icon style={specStyle} className={`specialization ${specialization.icon}`} />
+                                                                        <List.Content>{specialization.name}</List.Content>
+                                                                    </List.Item>
+                                                                )
+                                                            })}
+
+                                                        </List>
+                                                    </div>
+                                                )}
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                    </Grid>
+
 
                                 </Item.Extra>
                             </Item.Content>
