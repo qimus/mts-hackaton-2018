@@ -1,9 +1,5 @@
 import React from "react";
 import classnames from "classnames";
-import {
-    Header,
-    Table
-} from 'semantic-ui-react'
 
 
 const UserSpecialization = (props) => {
