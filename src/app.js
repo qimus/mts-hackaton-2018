@@ -56,7 +56,7 @@ export default class App extends Component {
                     <Switch>
                         <RouteWithLayout exact layout={MainLayout} path={'/'} page={MainPage}/>
                         <RouteWithLayout exact layout={MainLayout} path={'/events'} page={EventsPage}/>
-                        <RouteWithLayout exact layout={MainLayout} path={'/events/new'} page={AddEventPage}/>
+                        <RouteWithLayout exact privacy layout={MainLayout} path={'/events/new'} page={AddEventPage}/>
                         <RouteWithLayout exact layout={MainLayout} path={'/organizations'} page={OrganizationsPage}/>
                         <RouteWithLayout exact layout={MainLayout} path={'/volunteers'} page={VolunteersPage}/>
                         <RouteWithLayout exact layout={EmptyLayout} path={'/sign-in'} page={LoginPage}/>

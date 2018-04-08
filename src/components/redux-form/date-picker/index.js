@@ -9,13 +9,8 @@ import {
 } from 'semantic-ui-react'
 import './style.scss';
 
-//shape
-import optionItemShape from 'workflow/constants/shapes/redux-form/option-item'
-import metaShape from 'workflow/constants/shapes/redux-form/meta'
-
-import { DATE_FORMAT, DEV_ENV } from 'workflow/constants/app'
-import LabelExt from 'workflow/components/label-ext'
-import InfoIcon from 'workflow/components/redux-form/common/info-icon'
+import { DATE_FORMAT } from 'constants/app'
+import InfoIcon from 'components/redux-form/common/info-icon'
 
 const ReadonlyInput = ({ value, label, readonly = false }) => {
     return (
@@ -23,13 +18,18 @@ const ReadonlyInput = ({ value, label, readonly = false }) => {
     )
 };
 
-ReadonlyInput.propTypes = {
-    value: PropTypes.any,
-    label: PropTypes.string,
-    readonly: PropTypes.bool
+const style = {
+    field: {
+        position: 'relative',
+        paddingRight: 10
+    },
+    icon: {
+        position: 'absolute',
+        top: '25%'
+    }
 };
 
-const KedrDatePicker = ({
+const MyDatePicker = ({
                             label,
                             meta: { error = '', touched = false },
                             input,
@@ -37,10 +37,9 @@ const KedrDatePicker = ({
                             pickerOptions = {},
                             dateFormat = DATE_FORMAT,
                             timeFormat,
-                            timeInterval,
+                            timeIntervals,
                             isEdited = false,
-                            showTimeSelect = false,
-                            inLine = false
+                            showTimeSelect = false
                         }) => {
 
     function onChange(date) {
@@ -54,13 +53,12 @@ const KedrDatePicker = ({
     if (showTimeSelect) {
         pickerOptions.showTimeSelect = true;
         pickerOptions.timeFormat = timeFormat;
-        pickerOptions.timeIntervals = timeInterval;
+        pickerOptions.timeIntervals = timeIntervals;
     }
 
     return (
-        <Form.Field className={classnames({ 'edited-field': isEdited })}>
-            <LabelExt path={input.name} style={inLine ? { float: 'left', margin: 10 } : {}}>{label} {touched && error &&
-            <InfoIcon item={error}/>}</LabelExt>
+        <Form.Field style={style.field}>
+            <label>{label}</label>
 
             <DatePicker locale='ru'
                         {...input}
@@ -69,29 +67,9 @@ const KedrDatePicker = ({
                         selected={input.value ? moment(input.value, dateFormat + (timeFormat ? ' ' + timeFormat : '')) : null}
                         dateFormat={DATE_FORMAT}
                         {...pickerOptions}/>
+            {touched && error && <InfoIcon item={error} style={style.icon}/>}
         </Form.Field>
     )
 };
 
-if (process.env.NODE_ENV === DEV_ENV) {
-    KedrDatePicker.propTypes = {
-        label: PropTypes.string,
-        items: PropTypes.arrayOf(optionItemShape),
-        help: PropTypes.string,
-        meta: PropTypes.shape(metaShape),
-        input: PropTypes.object.isRequired,
-        dateFormat: PropTypes.string,
-        labelClass: PropTypes.string,
-        inputClass: PropTypes.string,
-        containerStyle: PropTypes.string,
-        readonly: PropTypes.bool,
-        pickerOptions: PropTypes.object,
-        timeFormat: PropTypes.string,
-        timeInterval: PropTypes.number,
-        showTimeSelect: PropTypes.bool,
-        isEdited: PropTypes.bool,
-        inLine: PropTypes.bool
-    };
-}
-
-export default KedrDatePicker;
+export default MyDatePicker;

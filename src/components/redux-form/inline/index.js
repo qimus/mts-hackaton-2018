@@ -6,15 +6,17 @@ import {
 export default function inline(Wrapped) {
     return class extends Component {
         render() {
-            const { label, ...rest } = this.props;
+            const { label, labelWidth = 5, labelAlign = 'middle', ...rest } = this.props;
+
+            const fieldWidth = 16 - labelWidth;
 
             return (
                 <Grid.Row>
-                    <Grid columns={2} verticalAlign={'middle'}>
-                        <Grid.Column width={5} textAlign={'right'}>
+                    <Grid columns={2} verticalAlign={labelAlign}>
+                        <Grid.Column width={labelWidth} textAlign={'right'}>
                             <label>{label}</label>
                         </Grid.Column>
-                        <Grid.Column width={11} textAlign={'right'}>
+                        <Grid.Column width={fieldWidth} textAlign={'left'}>
                             <Wrapped {...rest}/>
                         </Grid.Column>
                     </Grid>

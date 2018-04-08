@@ -7,7 +7,7 @@ import {
 } from 'semantic-ui-react'
 
 
-const Specializations = ({ input, items = []}) => {
+const Specializations = ({ input, items = [], columns = 2}) => {
 
     let cells = [], rows = [];
 
@@ -25,6 +25,12 @@ const Specializations = ({ input, items = []}) => {
         };
 
         let name = `${input.name}[${item.id}]`;
+
+        if ((i % columns == 0) && i > 0) {
+            rows.push(<Table.Row>{cells}</Table.Row>);
+            cells = [];
+        }
+
         cells.push(
             <Table.Cell>
                 <Header as={'h4'} image style={{marginTop: 10}}>
@@ -46,9 +52,8 @@ const Specializations = ({ input, items = []}) => {
             </Table.Cell>
         );
 
-        if (i % 2) {
+        if (i == items.length && (i % columns != 0)) {
             rows.push(<Table.Row>{cells}</Table.Row>);
-            cells = [];
         }
     });
 
