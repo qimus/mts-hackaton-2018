@@ -6,6 +6,7 @@ import events from './events'
 import event from './event'
 import organizations from './organizations'
 import organization from './organization'
+import users from './users'
 import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({
@@ -14,5 +15,6 @@ export default combineReducers({
     event,
     organizations,
     organization,
+    users,
     form: formReducer
 })
