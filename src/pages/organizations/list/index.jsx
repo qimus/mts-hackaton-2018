@@ -21,7 +21,7 @@ export default class OrganizationsList extends Component {
                         <Item key={organization.id}>
                             <Item.Content>
                                 <Item.Header>
-                                    <Link to={`/organizations/${organization.id}`}>{organization.name}</Link>
+                                    <Link to={`/organizations/${organization.id}`}>{organization.name} ({organization.level.name} ур.)</Link>
                                 </Item.Header>
                                 {organization.contacts && (
                                     <Item.Description>
@@ -29,9 +29,27 @@ export default class OrganizationsList extends Component {
                                             <List.Item>
                                                 <List.Icon name={'marker'} />
                                                 <List.Content>
-                                                    г. {organization.city.name}, {organization.address}
+                                                    г. {organization.city.name}, {organization.contacts.address}
                                                 </List.Content>
                                             </List.Item>
+
+                                            <List.Item>
+                                                <List.Icon name={'mail'} />
+                                                <List.Content>
+                                                    <a href={`mailto:${organization.contacts.email}`}>{organization.contacts.email}</a>
+                                                </List.Content>
+                                            </List.Item>
+
+                                            {organization.contacts.phones.map((phone, i) => {
+                                                return (
+                                                    <List.Item key={i}>
+                                                        <List.Icon name={'phone'} />
+                                                        <List.Content>
+                                                            {phone}
+                                                        </List.Content>
+                                                    </List.Item>
+                                                )
+                                            })}
 
                                         </List>
                                     </Item.Description>
@@ -50,7 +68,7 @@ export default class OrganizationsList extends Component {
                                                             <List.Content>
                                                                 <List.Header>
                                                                     <Link to={`/users/${user.id}`}>
-                                                                        {user.name}
+                                                                        {user.name} ({user.level} ур.)
                                                                     </Link>
                                                                 </List.Header>
                                                                 {user.phone}

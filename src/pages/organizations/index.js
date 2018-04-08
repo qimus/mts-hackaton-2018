@@ -12,7 +12,7 @@ export default class OrganizationsPage extends Component {
         return (
             <div>
                 <Header as={'h1'} dividing={true}>Организации</Header>
-                <OrganizationsContainer/>
+                <OrganizationsContainer isSponsor={false} />
             </div>
         )
     }
