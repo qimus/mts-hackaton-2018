@@ -7,7 +7,7 @@ const UserProgress = (props) => {
     return (
         <div>
             <h3>{props.level.name} уровень</h3>
-            <Progress percent={percent}>{props.experience}/{max}</Progress>
+            {props.currentUser && (<Progress percent={percent}>Опыт: {props.experience}/{max}</Progress>)}
         </div>
     )
 };

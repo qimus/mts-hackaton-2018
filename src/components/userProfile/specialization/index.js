@@ -1,9 +1,5 @@
 import React from "react";
 import classnames from "classnames";
-import {
-    Header,
-    Table
-} from 'semantic-ui-react'
 
 
 const UserSpecialization = (props) => {
@@ -19,7 +15,7 @@ const UserSpecialization = (props) => {
         )
     });
 
-    const addSpecialization = (
+    const addSpecialization = props.canAdd && (
         <div className={classnames("five wide column add")}>
             <div className={classnames('specialization', "new")} style={{float: "left"}}></div>
             <div className={classnames("label")}>
