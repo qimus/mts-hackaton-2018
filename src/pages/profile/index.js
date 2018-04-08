@@ -10,7 +10,6 @@ import UserSpecialization from "./specialization";
 class Profile extends Component {
 
     render() {
-        console.log(this.props);
         return (
             <div className={classnames('profile', 'ui grid')}>
                 <div className="row">
@@ -19,7 +18,9 @@ class Profile extends Component {
                     </div>
                     <div className={classnames("column eight wide segment", "user-info")}>
                         <UserInfo {...this.props.user} />
-                        <UserSpecialization collection={this.props.user.specializations} />
+                        {this.props.user.type.id != 2 && (
+                            <UserSpecialization collection={this.props.user.specializations} />
+                        )}
                     </div>
                 </div>
             </div>
