@@ -63,6 +63,7 @@ class AddEvent extends Component {
             organization_id: user.organization.id,
             start_at: values.start_at,
             finish_at: values.finish_at,
+            is_contacts_public: values.is_contacts_public,
             ...(values.address.coordinates|| {})
         };
 
@@ -157,7 +158,7 @@ class AddEvent extends Component {
                                 component={inlineRadio}
                                 label={'Видимость'}
                                 items={visibleMap}
-                                name={'hidden'}
+                                name={'is_contacts_public'}
                             />
                             <div style={{float: 'right'}}>
                                 <Button onClick={(e) => {
