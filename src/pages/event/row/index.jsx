@@ -58,7 +58,7 @@ export default class EventRow extends Component {
                             {event.organization.members.length > 0 && (
                                 <List.Item>
                                     <strong>Представитель: </strong>
-                                    <Link to={`/users/${event.organization.owner.id}`}>{event.organization.owner.name}</Link>
+                                    <Link to={`/users/${event.organization.members[0].id}`}>{event.organization.members[0].name}</Link>
                                 </List.Item>
 
                             )}
