@@ -29,7 +29,14 @@ const UserInfo = (props) => {
                 <img src={marker} style={{verticalAlign: "middle"}} /> {props.city.name}
                 </div>
             </div>
-            {parameters}
+            <div className={classnames("row")}>
+                <div className={classnames("twelve wide column")}>
+                    {parameters}
+                </div>
+                <div className={classnames("four wide column")}>
+                    level
+                </div>
+            </div>
         </div>
     );
 };

@@ -8,7 +8,7 @@ import {
 
 const UserSpecialization = (props) => {
 
-    const specializations = props.collection.map( item => {
+    const specializations = (props.collection || []).map( item => {
         return (
             <div className={classnames("five wide column")}>
                 <div className={classnames('specialization', item.icon)} style={{float: "left"}}></div>

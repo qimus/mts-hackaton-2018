@@ -4,11 +4,11 @@ import classnames from "classnames";
 
 const UserParameter = (props) => {
     return (
-        <div className={classnames("row", "property")}>
-            <div className={classnames("four wide column", "label")}>
+        <div className={classnames("ui grid", "property")}>
+            <div className={classnames("eight wide column", "label")}>
                 <strong>{props.label}</strong>
             </div>
-            <div className={classnames("four wide column", "value")}>
+            <div className={classnames("eight wide column", "value")}>
                 {props.value}
             </div>
         </div>
