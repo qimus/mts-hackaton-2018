@@ -68,8 +68,8 @@ export default class App extends Component {
                         <RouteWithLayout exact layout={MainLayout} path={'/volunteers'} page={VolunteersPage}/>
                         <RouteWithLayout exact layout={EmptyLayout} path={'/sign-in'} page={LoginPage}/>
                         <RouteWithLayout exact layout={EmptyLayout} path={'/sign-up'} page={SignUpPage}/>
-                        <RouteWithLayout exact privacy layout={MainLayout} path={'/profile/:id'} page={ProfilesPages}/>
-                        <RouteWithLayout exact privacy layout={MainLayout} path={'/profile'} page={ProfilePage}/>
+                        <RouteWithLayout exact layout={MainLayout} path={'/profile/:id'} page={ProfilesPages}/>
+                        <RouteWithLayout exact layout={MainLayout} path={'/profile'} page={ProfilePage}/>
                         <Route component={NotFound} path={'*'}/>
                     </Switch>
                 </Router>

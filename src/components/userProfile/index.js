@@ -20,7 +20,9 @@ class UserProfile extends Component {
                         {_.get(this.props, 'user.type.id') != 2 && (
                             <UserSpecialization collection={this.props.user.specializations} canAdd={this.props.currentUser} />
                         )}
-                        <UserAchievement collection={this.props.user.achievements} />
+                        {_.get(this.props, 'user.achievements') && this.props.user.achievements.length > 0 && (
+                            <UserAchievement collection={this.props.user.achievements} />
+                        )}
                     </div>
                 </div>
             </div>

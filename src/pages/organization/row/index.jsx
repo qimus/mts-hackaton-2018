@@ -75,7 +75,7 @@ export default class OrganizationRow extends Component {
                                                     {!user.avatar_url && (<List.Icon name={'user circle'} /> )}
                                                     <List.Content>
                                                         <List.Header>
-                                                            <Link to={`/users/${user.id}`}>
+                                                            <Link to={`/profile/${user.id}`}>
                                                                 {user.name} ({user.level.name} ур.)
                                                             </Link>
                                                         </List.Header>

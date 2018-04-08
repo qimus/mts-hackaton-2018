@@ -58,7 +58,7 @@ export default class EventRow extends Component {
                             {event.organization.members.length > 0 && (
                                 <List.Item>
                                     <strong>Представитель: </strong>
-                                    <Link to={`/users/${event.organization.members[0].id}`}>{event.organization.members[0].name}</Link>
+                                    <Link to={`/profile/${event.organization.members[0].id}`}>{event.organization.members[0].name}</Link>
                                 </List.Item>
 
                             )}
@@ -82,7 +82,7 @@ export default class EventRow extends Component {
                                             {!user.avatar_url && (<List.Icon name={'user circle'} /> )}
                                             <List.Content>
                                                 <List.Header>
-                                                    <Link to={`/users/${user.id}`}>
+                                                    <Link to={`/profile/${user.id}`}>
                                                         {user.name} ({user.level} ур.)
                                                     </Link>
                                                 </List.Header>

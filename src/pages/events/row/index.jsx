@@ -66,7 +66,7 @@ export default class EventRow extends Component {
                                                 {!user.avatar_url && (<List.Icon name={'user circle'} /> )}
                                                 <List.Content>
                                                     <List.Header>
-                                                        <Link to={`/users/${user.id}`}>
+                                                        <Link to={`/profile/${user.id}`}>
                                                             {user.name} ({user.level} ур.)
                                                         </Link>
                                                     </List.Header>
